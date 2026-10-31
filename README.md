@@ -110,42 +110,33 @@ pip install -r requirements.txt
 
 ---
 
-## 🚀 Quickstart & Usage
+## 🚀 Running the Application
 
-### 1. Working with the Student Model
-```python
-from src.models.student import Student
+Launch the interactive console application:
 
-# Create a student profile
-student = Student(
-    name="Alice Smith",
-    age=20,
-    roll_number=101,
-    study_hours=18.5,
-    attendance=92.0,
-    participation=8.5,
-    total_score=89.0
-)
-
-print(student)
-# Output: Student: Alice Smith | Roll: 101 | Grade: A
+```bash
+python main.py
 ```
 
-### 2. Saving and Loading Records
-```python
-from src.utils.file_manager import save_students_to_csv, load_students_from_csv, find_student_by_roll
+### Interactive CLI Menu
+The system provides a menu-driven interface with automated data validation, file persistence, and analytical dispatch:
 
-# Save student list to file
-save_students_to_csv("data/students.csv", [student])
-
-# Load students back into memory
-records = load_students_from_csv("data/students.csv")
-print(f"Loaded {len(records)} student(s).")
-
-# Search for a specific student by roll number
-matched_student = find_student_by_roll("data/students.csv", 101)
-print(f"Found: {matched_student}")
+```text
+======================================================
+  🎓 Student Performance Analysis & Prediction System
+======================================================
+[1] 📝 Add New Student Record
+[2] 📋 View All Registered Students
+[3] 🔍 Search Student by Roll Number
+[4] 📊 Run Exploratory Data Analysis & Visualizations
+[5] 🤖 Predict Grade & Score for New Student (ML)
+[6] 🚪 Exit
+======================================================
 ```
+
+* **Data Entry**: Guided prompts to enter student details (`name`, `age`, `roll_number`, `study_hours`, `attendance`, `participation`, `total_score`). Bounds validation prevents invalid records from being saved.
+* **Auto-Grading & Persistence**: Automatically calculates letter grade (`A`–`F`) and appends the record into `data/students.csv`.
+* **Analytics & Predictions**: Triggers EDA visual summaries and machine learning inference directly from the console.
 
 ---
 
