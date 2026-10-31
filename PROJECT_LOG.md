@@ -89,22 +89,7 @@ student_performance_analysis/
 
 ---
 
-## 5. Intern Performance & Industry Readiness Review
-*Evaluated on industry standards: Attention to detail, dependency hygiene, architecture design, and problem-solving.*
-
-| Metric | Rating (1-5) | Mentor Remarks & Growth Areas |
-| :--- | :---: | :--- |
-| **Environment & Tooling** | 4.0 / 5 | **Good:** Proactively created and activated the virtual environment (`.venv`) without being spoon-fed. |
-| **Attention to Detail (Dependencies)** | 3.0 / 5 | **Improving:** Initially had a PyPI typo (`scikitlearn`) and missed `matplotlib`/`seaborn`. Corrected promptly after review without hand-holding — shows coachability. |
-| **Code Structure & Modularity** | 3.5 / 5 | **Good:** Clean base exception hierarchy. Person→Student inheritance works. Fixed import paths after testing. |
-| **Error Handling & Resilience** | 3.5 / 5 | **Improving:** Validation in `__init__` is correct pattern. Understood raise-vs-catch separation after explanation. |
-| **Testing & Verification** | 3.0 / 5 | **Improving:** Tested from project root after guidance. Verified both happy path and error path. |
-| **OOP & Design Thinking** | 3.0 / 5 | **Solid fundamentals:** Inheritance, encapsulation, properties all demonstrated. Had `super().__init__()` arg mismatch initially — core concept gap in understanding what parent needs vs child needs. Fixed after one explanation. |
-| **Overall Industry Readiness** | **Intern Level (Growing)** | Demonstrating coachability and faster iteration cycles. Key gap: understanding inheritance mechanics (what to pass to super). Getting stronger. |
-
----
-
-## 6. Session Log & Handover Notes
+## 5. Session Log & Handover Notes
 
 ### Session 1 (2026-10-28 to 2026-10-29) - Summary of Accomplishments:
 1. **Environment Setup (Phase 1):**

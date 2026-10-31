@@ -1,0 +1,15 @@
+# Personal/Private files
+INTERN_REVIEW.md
+
+# Virtual Environment
+.venv/
+env/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Editor settings
+.vscode/
+.idea/
