@@ -110,7 +110,7 @@ student_performance_analysis/
    - Implemented context managers (`with open...`), `csv.DictReader` deserialization, and custom `RecordNotFound` handling.
    - Tested happy paths, file existence errors, and search misses with 100% pass rate.
 3. **Repository Cleanliness:**
-   - Separated mentor performance evaluation into `INTERN_REVIEW.md` and added it to `.gitignore`.
+   - Separated mentor performance evaluation to `.gitignore`.
 
 ### Next Session Agenda (Phase 3 - Exploratory Data Analysis):
 - [ ] **Load Dataset**: Read `data/student_performance.csv` into Pandas DataFrame (with memory-efficient sampling if needed).
