@@ -68,9 +68,10 @@ student_performance_analysis/
 - [x] Create virtual environment & `requirements.txt` ✅ (Completed 2026-10-28)
 - [x] Define custom exceptions (`InvalidMarksError`, `RecordNotFound`) ✅ (Completed 2026-10-29, took 2 review rounds)
 
+### Phase 2: Core OOP & Student Grading (Unit I & II)
 - [x] Implement `Person` base class and `Student` subclass (encapsulation & inheritance) ✅ (Completed 2026-10-29)
 - [x] Grading logic using functional programming (`filter`, `lambda`, `next`) ✅ (Completed 2026-10-31)
-- [ ] File I/O manager to save and load student records via CSV/JSON (`with open...`)
+- [x] File I/O manager to save and load student records via CSV/JSON (`with open...`) ✅ (Completed 2026-10-31)
 
 ### Phase 3: Exploratory Data Analysis (EDA) (Unit III)
 - [ ] Load student dataset into Pandas DataFrame
@@ -101,8 +102,20 @@ student_performance_analysis/
 4. **Core OOP Modeling (Phase 2):**
    - Implemented `src/models/student.py` featuring `Person` (encapsulation with `@property`) and `Student` subclass (inheritance via `super().__init__`, score & attendance validation, and `calc_grade()`). Verified execution and exception handling from project root.
 
-### Next Session Agenda (Picking Up Right Here):
-- [x] **Refactor `calc_grade()` in `student.py`**: Functional programming (`filter()` + `lambda` + `next()`) ✅ (Done 2026-10-31)
-- [ ] **Phase 2, Task 3 - Student Persistence (File I/O)**: Build a file manager/utility in `src/utils/` to save and load student objects to/from CSV using context managers (`with open(...)`) and error handling (Unit I & II).
-- [ ] **Phase 3 - Exploratory Data Analysis (EDA)**: Begin data loading, sampling, and Pandas summary statistics.
+### Session 2 (2026-10-31) - Summary of Accomplishments:
+1. **Functional Grading Logic (Phase 2):**
+   - Refactored `Student.calc_grade()` using `lambda`, `filter()`, and `next()` with fallback defaults, replacing `if/elif` branching.
+2. **Student Persistence & File I/O (Phase 2):**
+   - Created `src/utils/file_manager.py` with `save_students_to_csv()`, `load_students_from_csv()`, and `find_student_by_roll()`.
+   - Implemented context managers (`with open...`), `csv.DictReader` deserialization, and custom `RecordNotFound` handling.
+   - Tested happy paths, file existence errors, and search misses with 100% pass rate.
+3. **Repository Cleanliness:**
+   - Separated mentor performance evaluation into `INTERN_REVIEW.md` and added it to `.gitignore`.
+
+### Next Session Agenda (Phase 3 - Exploratory Data Analysis):
+- [ ] **Load Dataset**: Read `data/student_performance.csv` into Pandas DataFrame (with memory-efficient sampling if needed).
+- [ ] **Descriptive Statistics**: Compute statistical summaries (mean, median, standard deviation) using Pandas & NumPy.
+- [ ] **Group Aggregations**: Group by study hours and attendance brackets to evaluate score trends.
+- [ ] **Visualizations**: Generate Matplotlib & Seaborn plots (grade distributions, correlation heatmaps, box plots).
+
 
