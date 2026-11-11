@@ -21,10 +21,13 @@ class StudentPerformanceModel:
         X = self.df[[hours_col, 'attendance_percentage', 'class_participation']]
         y = self.df[score_col]
 
+        stratify_col = self.df['grade'] if 'grade' in self.df.columns else None
+
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42)
+        X, y, test_size=0.2,stratify=stratify_col, random_state=42)
 
         return self.X_train, self.X_test, self.y_train, self.y_test
+
     def train(self):
         if self.model_type == "random_forest":
             self.model = RandomForestRegressor(n_estimators=50, random_state=42, n_jobs=-1)
@@ -51,7 +54,7 @@ class StudentPerformanceModel:
 
         return metrics
 
-        def predict_student(self, study_hours, attendance, participation):
+    def predict_student(self, study_hours, attendance, participation):
             if self.model is None:
                 raise ValueError("Model is not trained yet. Call train() first.")
 
