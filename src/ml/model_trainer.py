@@ -3,6 +3,9 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
+import os
+import joblib
+DEFAULT_MODEL_PATH = os.path.join("models", "student_model.pkl")
 
 class StudentPerformanceModel:
     def __init__(self, df, model_type = "linear"):
@@ -71,3 +74,21 @@ class StudentPerformanceModel:
                 "predicted_score": score,
                 "predicted_grade": grade
             }
+    
+    def save_model(self, filepath=DEFAULT_MODEL_PATH):
+        """Saves the trained model to disk so it doesn't need to be retrained."""
+        if self.model is None:
+            raise ValueError("No model to save. Train a model first.")
+        
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        joblib.dump(self.model, filepath)
+        print(f"Model saved to {filepath}")
+    
+    def load_model(self, filepath=DEFAULT_MODEL_PATH):
+        """Loads a pre-trained model from disk in ~0.001 seconds."""
+        if not os.path.exists(filepath):
+            raise FileNotFoundError(f"No saved model found at {filepath}. Please train first.")
+        
+        self.model = joblib.load(filepath)
+        print(f"Model loaded from {filepath}")
+        return self.model

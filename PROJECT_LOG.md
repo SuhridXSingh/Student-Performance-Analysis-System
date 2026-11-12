@@ -79,9 +79,9 @@ student_performance_analysis/
 - [x] Matplotlib & Seaborn visualizations (grade distribution, correlation heatmaps, boxplots) ✅ (Completed 2026-11-10)
 
 ### Phase 4: Machine Learning Model (Unit III)
-- [ ] Train a classification model (e.g. predict Pass/Fail or Grade Tier based on study time, attendance, past scores)
-- [ ] Model evaluation (Accuracy score, confusion matrix)
-- [ ] Function to predict performance for a new student profile
+- [x] Train regression model (Linear Regression & Random Forest) to predict score ✅ (Completed 2026-11-11)
+- [x] Model evaluation (MAE, RMSE, R2) with stratified splitting on grade distribution ✅ (Completed 2026-11-11)
+- [x] Function to predict score and grade for a new student profile (`predict_student`) ✅ (Completed 2026-11-11)
 
 ### Phase 5: CLI Integration & Polish
 - [ ] Interactive CLI menu binding all components
@@ -132,10 +132,18 @@ student_performance_analysis/
      - `generate_all_visualizations()`: Automated pipeline saving publication-grade 300 DPI figures to `reports/figures/`.
    - Verified end-to-end execution on 1M rows with zero errors.
 
-### Next Session Agenda (Phase 4 - Machine Learning Model):
-- [ ] **Data Preprocessing & Splitting**: Train/Test split (`train_test_split`), feature scaling if needed.
-- [ ] **Classification Model**: Train classifier (e.g. Random Forest or Logistic Regression) to predict student `grade` / Pass-Fail.
-- [ ] **Regression Model**: Train regressor (e.g. Ridge / Random Forest) to predict `total_score`.
-- [ ] **Evaluation**: Confusion matrix, classification report, accuracy, RMSE, and $R^2$ score.
+### Session 5 (2026-11-11) - Summary of Accomplishments:
+1. **Machine Learning Pipeline (Phase 4 - Unit III):**
+   - Implemented `StudentPerformanceModel` in `src/ml/model_trainer.py`.
+   - Built `prep_data()` with stratified train-test splitting based on the categorical `grade` distribution to preserve class balance.
+   - Implemented `train()` supporting both `LinearRegression` baseline and `RandomForestRegressor`.
+   - Built `evaluate()` calculating MAE, RMSE, and $R^2$.
+   - Implemented `predict_student()` predicting continuous scores and mapping them into grade tiers using functional threshold logic.
+   - Verified end-to-end predictions and error metrics on test profiles.
+
+### Next Session Agenda (Phase 5 - CLI Integration & Polish):
+- [ ] **Interactive CLI Menu**: Implement `main.py` tying together Student OOP, File I/O, EDA summaries, Visualizations, and ML predictions.
+- [ ] **Error Handling**: Wrap user inputs with robust input validation and custom exceptions (`InvalidMarksError`, `RecordNotFound`).
+- [ ] **Final Smoke Test**: Complete walk-through of the whole application from terminal.
 
 
