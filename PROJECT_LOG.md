@@ -86,7 +86,7 @@ student_performance_analysis/
 ### Phase 5: CLI Integration & Polish
 - [x] Interactive CLI menu binding all components (`main.py`) ✅ (Completed 2026-11-12)
 - [x] Robust error handling for all user inputs (`InvalidMarksError`, `RecordNotFound`, `ValueError`) ✅ (Completed 2026-11-12)
-- [ ] *(Optional bonus)* Streamlit dashboard or Jupyter demo notebook
+- [x] Interactive Streamlit web dashboard in `app.py` (zero emojis, publication theme) ✅ (Completed 2026-11-12)
 
 ---
 

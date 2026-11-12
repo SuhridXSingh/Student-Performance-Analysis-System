@@ -1,41 +1,59 @@
-# 🎓 Student Performance Analysis System
+# Student Performance Analysis System
 
 [![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code Style](https://img.shields.io/badge/Code%20Style-PEP%208-green.svg)](https://peps.python.org/pep-0008/)
+[![Streamlit](https://img.shields.io/badge/UI-Streamlit-red.svg)](https://streamlit.io/)
 
-An end-to-end, modular Python application designed for academic student tracking, exploratory performance analytics, and predictive machine learning. 
+An end-to-end, modular Python application designed for academic student tracking, exploratory performance analytics, and predictive machine learning.
 
-This repository strictly bridges core Python computer science fundamentals (OOP, error handling, functional programming) with applied data science (NumPy, Pandas, Seaborn, Scikit-Learn).
+This project strictly bridges core computer science fundamentals (Object-Oriented Programming, custom exception handling, functional programming) with applied data science (NumPy, Pandas, Seaborn, Matplotlib, Scikit-Learn) and offers dual user interfaces: an interactive terminal CLI and a modern Streamlit web dashboard.
 
 ---
 
-## 📌 What Does This Program Do?
+## What Does This Program Do?
 
-The **Student Performance Analysis System** is built to solve both operational record management and data-driven educational analytics:
+The **Student Performance Analysis System** addresses both operational record management and data-driven educational analytics:
 
 1. **Student Record Management (CRUD & Validation)**:
-   - Manages student profiles with strict boundary validation (e.g. valid scores `[0, 100]`, valid attendance percentage).
-   - Dynamically computes letter grades (`A`, `B`, `C`, `D`, `F`) using functional programming.
+   - Manages student profiles with strict boundary validation (scores `[0, 100]`, attendance percentages, study hours).
+   - Dynamically computes letter grades (`A`, `B`, `C`, `D`, `F`) using functional programming (`lambda`, `filter`, `next`).
    - Serializes and deserializes student records to and from CSV using context managers.
 2. **Exploratory Data Analysis (EDA)**:
-   - Ingests and processes a 1,000,000-row student academic dataset.
-   - Computes statistical summaries (mean, median, standard deviation) and group aggregations (correlating study hours and attendance against final scores).
-   - Generates publication-ready visualizations (correlation heatmaps, grade distributions, and factor boxplots).
-3. **Predictive Performance Analytics (Machine Learning)**:
-   - Uses Scikit-Learn classification and regression models to predict expected grades and scores based on self-study hours, class attendance, and active participation.
-   - Enables early intervention for at-risk students.
+   - Ingests and processes a 1,000,000-row student academic dataset from Kaggle.
+   - Computes statistical summaries (mean, median, standard deviation, quartiles, IQR) and group aggregations across grade tiers and study hour brackets.
+   - Computes feature correlation matrices to identify primary performance drivers.
+3. **Publication-Quality Visualizations**:
+   - Generates and exports high-resolution (300 DPI) figures to `reports/figures/`:
+     - Student Grade Distribution (annotated count & percentage bars)
+     - Feature Correlation Heatmap (annotated Pearson $r$)
+     - Study Hours vs. Score Distribution (Tukey boxplots across brackets)
+     - Overall Total Score Distribution (histogram + Kernel Density Estimation curve)
+4. **Predictive Machine Learning Engine**:
+   - Trains Scikit-Learn regression models (Linear Regression baseline and Random Forest Regressor) with stratified train-test splits based on grade distribution.
+   - Serializes and loads pre-trained models using `joblib` for sub-5ms real-time inference.
+   - Predicts continuous total scores and automatically classifies students into academic performance tiers.
 
 ---
 
-## 🏗️ Project Architecture
+## Project Architecture
 
 ```text
 student_performance_analysis/
 │
 ├── data/                                 # Datasets
 │   ├── student_performance.csv           # 1M row Kaggle dataset for EDA & ML training
-│   └── students.csv                      # Operational database for app student records
+│   └── students.csv                      # Operational database for local student records
+│
+├── models/                               # Serialized Machine Learning Artifacts
+│   └── student_model.pkl                 # Trained Random Forest Regressor model (joblib)
+│
+├── reports/                              # Generated Visual Outputs
+│   └── figures/                          # Exported 300 DPI visualization figures
+│       ├── grade_distribution.png
+│       ├── correlation_heatmap.png
+│       ├── study_hours_vs_score.png
+│       └── score_distribution.png
 │
 ├── src/                                  # Core Application Source Code
 │   ├── models/                           # Domain Models (OOP & Encapsulation)
@@ -44,44 +62,48 @@ student_performance_analysis/
 │   │
 │   ├── exceptions/                       # Custom Exception Hierarchy
 │   │   ├── __init__.py
-│   │   └── custom_exceptions.py          # InvalidMarksError, RecordNotFound
+│   │   └── custom_exceptions.py          # BaseAppExceptions, InvalidMarksError, RecordNotFound
 │   │
-│   ├── utils/                            # Utilities & Persistence
+│   ├── utils/                            # File I/O & Persistence
 │   │   ├── __init__.py
-│   │   └── file_manager.py               # CSV serialization, deserialization & search
+│   │   └── file_manager.py               # CSV serialization, deserialization & search lookups
 │   │
 │   ├── analysis/                         # Data Science & Statistics (Unit III)
-│   │   └── __init__.py                   # Data processing & Pandas operations
+│   │   ├── __init__.py
+│   │   └── data_analyzer.py              # Health check, summary statistics, group aggregations
 │   │
 │   ├── visualization/                    # Visual Analytics (Unit III)
-│   │   └── __init__.py                   # Matplotlib & Seaborn plotting routines
+│   │   ├── __init__.py
+│   │   └── visualizer.py                 # Matplotlib & Seaborn plotting routines
 │   │
 │   └── ml/                               # Machine Learning (Unit III)
-│       └── __init__.py                   # Scikit-learn pipelines & inference
+│       ├── __init__.py
+│       └── model_trainer.py              # Scikit-learn training, evaluation, persistence & inference
 │
-├── .gitignore                            # Repository ignore rules
-├── PROJECT_LOG.md                        # Phase-wise roadmap and session progress
+├── app.py                                # Streamlit Web Application (Interactive Dashboard)
+├── main.py                               # Terminal CLI Entrypoint (Menu Loop & Handlers)
+├── PROJECT_LOG.md                        # Phase-wise development roadmap & session logs
 ├── requirements.txt                      # Project dependencies
 └── README.md                             # Project documentation
 ```
 
 ---
 
-## 🧩 Academic Syllabus Alignment
+## Academic Syllabus Alignment
 
 | Syllabus Unit | Key Concepts Implemented | Modules / Files |
 | :--- | :--- | :--- |
-| **Unit I: Fundamentals & File I/O** | Environment setup, control flow, functions, `with open(...)` context managers, file streams, type conversion. | `src/utils/file_manager.py` |
+| **Unit I: Fundamentals & File I/O** | Environment setup, control flow, functions, `with open(...)` context managers, CSV streams, type casting, error handling. | `src/utils/file_manager.py`<br>`main.py` |
 | **Unit II: Advanced Python & OOP** | Encapsulation (`@property`), Inheritance (`Person` $\rightarrow$ `Student`), custom exceptions (`raise`/`except`), functional programming (`lambda`, `filter`, `next`). | `src/models/student.py`<br>`src/exceptions/custom_exceptions.py` |
-| **Unit III: Data Science & ML** | NumPy array math, Pandas DataFrames/aggregations, Matplotlib/Seaborn charting, Scikit-learn modeling. | `src/analysis/`<br>`src/visualization/`<br>`src/ml/` |
+| **Unit III: Data Science & ML** | NumPy array operations, Pandas DataFrames & group aggregations, Seaborn & Matplotlib visualizations, Scikit-learn Regression & model persistence (`joblib`). | `src/analysis/data_analyzer.py`<br>`src/visualization/visualizer.py`<br>`src/ml/model_trainer.py` |
 
 ---
 
-## ⚙️ Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
-- Python 3.10 or higher installed.
-- Git installed.
+- Python 3.10 or higher installed
+- Git installed
 
 ### 1. Clone the Repository
 ```bash
@@ -89,7 +111,7 @@ git clone https://github.com/SuhridXSingh/Student-Performance-Analysis-System.gi
 cd Student-Performance-Analysis-System
 ```
 
-### 2. Create and Activate a Virtual Environment
+### 2. Create and Activate Virtual Environment
 
 **Windows (PowerShell):**
 ```powershell
@@ -110,71 +132,91 @@ pip install -r requirements.txt
 
 ---
 
-## 🚀 Running the Application
+## Running the Application
 
-Launch the interactive console application:
+The system can be operated in two modes:
+
+### Mode 1: Interactive Terminal CLI
+Launch the menu-driven console application:
 
 ```bash
 python main.py
 ```
 
-### Interactive CLI Menu
-The system provides a menu-driven interface with automated data validation, file persistence, and analytical dispatch:
-
 ```text
-======================================================
-  🎓 Student Performance Analysis & Prediction System
-======================================================
-[1] 📝 Add New Student Record
-[2] 📋 View All Registered Students
-[3] 🔍 Search Student by Roll Number
-[4] 📊 Run Exploratory Data Analysis & Visualizations
-[5] 🤖 Predict Grade & Score for New Student (ML)
-[6] 🚪 Exit
-======================================================
+=======================================================
+STUDENT PERFORMANCE ANALYSIS & PREDICTION SYSTEM
+=======================================================
+1. Add New Student Record
+2. Search Student by Roll Number
+3. View All Student Records (CSV)
+4. Run Exploratory Data Analysis (EDA)
+5. Generate & Save Visualizations
+6. Predict Student Performance (ML)
+7. Exit
+=======================================================
 ```
 
-* **Data Entry**: Guided prompts to enter student details (`name`, `age`, `roll_number`, `study_hours`, `attendance`, `participation`, `total_score`). Bounds validation prevents invalid records from being saved.
-* **Auto-Grading & Persistence**: Automatically calculates letter grade (`A`–`F`) and appends the record into `data/students.csv`.
-* **Analytics & Predictions**: Triggers EDA visual summaries and machine learning inference directly from the console.
+### Mode 2: Interactive Streamlit Web Dashboard
+Launch the web interface in your default browser:
+
+```bash
+streamlit run app.py
+```
+
+The web dashboard opens at `http://localhost:8501` featuring:
+- **Overview Dashboard**: High-level KPIs, syllabus coverage mapping, and grading scale tables.
+- **Student Records**: Interactive data grid, new student input form, and roll number search.
+- **Exploratory Data Analysis**: Dataset health, summary metrics, group distributions, and full correlation matrix.
+- **Visualizations**: Dedicated interactive tabs rendering Matplotlib and Seaborn figures.
+- **Performance Predictor**: Sliders for study hours, attendance %, and participation score providing instant predicted scores, grade tiers, and academic standing assessments.
 
 ---
 
-## 📊 Dataset Information
+## Dataset Information
 
-* **Source**: [Student Performance Dataset – Kaggle](https://www.kaggle.com/datasets/nabeelqureshitiii/student-performance-dataset)
-* **Dataset Size**: 1,000,000 rows
-* **Features**:
-  * `weekly_self_study_hours` (0–40): Average weekly hours spent studying.
-  * `attendance_percentage` (50–100): Class attendance record.
-  * `class_participation` (0–10): Continuous evaluation of classroom engagement.
-  * `total_score` (0–100): Continuous final performance mark (Regression target).
-  * `grade` (`A`, `B`, `C`, `D`, `F`): Discrete performance tier (Classification target).
+- **Source**: [Student Performance Dataset – Kaggle](https://www.kaggle.com/datasets/nabeelqureshitiii/student-performance-dataset)
+- **Dataset Size**: 1,000,000 rows
+- **Features**:
+  - `weekly_self_study_hours` (0–40): Average weekly hours spent self-studying.
+  - `attendance_percentage` (50–100): Class attendance record.
+  - `class_participation` (0–10): Classroom engagement score.
+  - `total_score` (0–100): Continuous final performance score (Target for Regression).
+  - `grade` (`A`, `B`, `C`, `D`, `F`): Categorical academic grade tier (Target for Classification).
+
+### Grade Thresholds
+- **A**: $\ge 85$
+- **B**: $\ge 70$
+- **C**: $\ge 55$
+- **D**: $\ge 40$
+- **F**: $< 40$
 
 ---
 
-## 🗺️ Project Roadmap
+## Project Roadmap
 
 - [x] **Phase 1: Environment & Custom Exceptions**
-  - [x] Virtualenv configuration & dependency management
+  - [x] Virtualenv configuration and dependency hygiene
   - [x] Exception hierarchy (`BaseAppExceptions`, `InvalidMarksError`, `RecordNotFound`)
 - [x] **Phase 2: Core OOP & Student Persistence**
   - [x] `Person` base class and `Student` subclass with encapsulation
   - [x] Functional grading logic with `filter()`, `lambda`, and `next()`
   - [x] File persistence manager with context managers and search lookups
-- [ ] **Phase 3: Exploratory Data Analysis (EDA)**
-  - [ ] Pandas DataFrame loading and data hygiene inspection
-  - [ ] Descriptive statistics and grouped aggregations
-  - [ ] Seaborn & Matplotlib visual analytical dashboards
-- [ ] **Phase 4: Machine Learning Modeling**
-  - [ ] Train/test split and feature scaling
-  - [ ] Classifier training (Predicting Grade category)
-  - [ ] Model evaluation (Confusion matrix, precision, recall, accuracy)
-- [ ] **Phase 5: Interactive CLI Application**
-  - [ ] Menu loop binding persistence, analytics, and ML inference together
-  - [ ] Input validation and robust error recovery
+- [x] **Phase 3: Exploratory Data Analysis & Visualizations**
+  - [x] Pandas DataFrame loading and data hygiene inspection (1M rows)
+  - [x] Descriptive statistics, quartiles, and grouped aggregations
+  - [x] Matplotlib and Seaborn visual suite (4 exported 300 DPI figures)
+- [x] **Phase 4: Machine Learning Modeling**
+  - [x] Stratified train-test split preserving class distribution
+  - [x] Linear Regression and Random Forest Regressor implementation
+  - [x] Model evaluation metrics (MAE, RMSE, $R^2$)
+  - [x] Model serialization and persistence (`joblib`)
+- [x] **Phase 5: CLI Integration & Web UI**
+  - [x] Unified interactive terminal application (`main.py`)
+  - [x] Robust input validation and error recovery
+  - [x] Interactive Streamlit web dashboard (`app.py`)
 
 ---
 
-## 📄 License
+## License
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
