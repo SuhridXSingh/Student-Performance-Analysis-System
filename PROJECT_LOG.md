@@ -84,8 +84,8 @@ student_performance_analysis/
 - [x] Function to predict score and grade for a new student profile (`predict_student`) ✅ (Completed 2026-11-11)
 
 ### Phase 5: CLI Integration & Polish
-- [ ] Interactive CLI menu binding all components
-- [ ] Robust error handling for all user inputs
+- [x] Interactive CLI menu binding all components (`main.py`) ✅ (Completed 2026-11-12)
+- [x] Robust error handling for all user inputs (`InvalidMarksError`, `RecordNotFound`, `ValueError`) ✅ (Completed 2026-11-12)
 - [ ] *(Optional bonus)* Streamlit dashboard or Jupyter demo notebook
 
 ---
@@ -139,11 +139,24 @@ student_performance_analysis/
    - Implemented `train()` supporting both `LinearRegression` baseline and `RandomForestRegressor`.
    - Built `evaluate()` calculating MAE, RMSE, and $R^2$.
    - Implemented `predict_student()` predicting continuous scores and mapping them into grade tiers using functional threshold logic.
+   - Implemented model persistence (`save_model`, `load_model`) using `joblib`.
    - Verified end-to-end predictions and error metrics on test profiles.
 
-### Next Session Agenda (Phase 5 - CLI Integration & Polish):
-- [ ] **Interactive CLI Menu**: Implement `main.py` tying together Student OOP, File I/O, EDA summaries, Visualizations, and ML predictions.
-- [ ] **Error Handling**: Wrap user inputs with robust input validation and custom exceptions (`InvalidMarksError`, `RecordNotFound`).
-- [ ] **Final Smoke Test**: Complete walk-through of the whole application from terminal.
+### Session 6 (2026-11-12) - Summary of Accomplishments:
+1. **Main CLI Application (Phase 5 - Core Polish):**
+   - Implemented unified interactive terminal application in `main.py`.
+   - Bound all project modules into a clean 7-option menu using `match...case`:
+     - Option 1: Add Student with validation and CSV persistence.
+     - Option 2: Search Student by Roll Number with `RecordNotFound` handling.
+     - Option 3: View All Local Records in formatted table view.
+     - Option 4: Full EDA pipeline with health check, descriptive stats, and correlation.
+     - Option 5: Auto-generate 4 publication-quality 300 DPI figures to `reports/figures/`.
+     - Option 6: Predict Student Performance via pre-trained Scikit-learn model with zero-lag inference.
+     - Option 7: Clean exit and graceful `KeyboardInterrupt` handling.
+   - Tested happy paths, duplicate rejection, invalid marks catching, and automated smoke test with 100% pass rate.
+
+### Next Session Agenda:
+- [ ] *(Optional bonus)* Streamlit interactive web dashboard or demo video/presentation prep.
+- [ ] Final project documentation review and packaging.
 
 

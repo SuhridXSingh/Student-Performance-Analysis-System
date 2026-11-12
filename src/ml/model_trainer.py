@@ -61,7 +61,11 @@ class StudentPerformanceModel:
             if self.model is None:
                 raise ValueError("Model is not trained yet. Call train() first.")
 
-            input_data = pd.DataFrame([[study_hours, attendance, participation]], columns=self.X_train.columns)
+            feature_names = (
+                self.X_train.columns 
+                if self.X_train is not None 
+                else getattr(self.model, "feature_names_in_", ['weekly_self_study_hours', 'attendance_percentage', 'class_participation']))
+            input_data = pd.DataFrame([[study_hours, attendance, participation]], columns=feature_names)
         
             raw_score = float(self.model.predict(input_data)[0])
 
